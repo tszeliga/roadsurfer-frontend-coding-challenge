@@ -30,5 +30,9 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ],
+  },
+
+  app: {
+    baseURL: '/roadsurfer-frontend-coding-challenge/'
   }
 })

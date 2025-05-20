@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-
 import { formatDate, isToday } from '../../../utils/date';
 
 import SearchInput from '../components/SearchInput.vue';
@@ -33,9 +32,11 @@ function thisWeek() {
 
         <div>
             <div class="flex justify-between items-center mb-4">
-                <SearchInput
-                    placeholder="Search camps" search-id="name" :get-results="store.stationsList"
-                    @select-item="search" />
+                <ClientOnly>
+                    <SearchInput
+                        placeholder="Search camps" search-id="name" :get-results="store.stationsList"
+                        @select-item="search" />
+                </ClientOnly>
                 <div class="flex space-x-2">
                     <button
                         class="p-2 cursor-pointer rounded-md bg-blue-500 text-white hover:bg-blue-600"
