@@ -26,7 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="min-h-screen flex  justify-center p-4">
+    <div class="min-h-screen flex justify-center p-4">
         <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
             <NuxtLink
                 :to="{ name: ROUTES.Calendar }"

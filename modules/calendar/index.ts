@@ -13,12 +13,12 @@ export default defineNuxtModule({
         {
           name: ROUTES.Booking,
           path: "/station/:stationId/booking/:bookingId",
-          file: resolver.resolve("./pages/booking.vue"),
+          file: resolver.resolve("./pages/BookingPage.vue"),
         },
         {
           name: ROUTES.Calendar,
           path: "/",
-          file: resolver.resolve("./pages/index.vue"),
+          file: resolver.resolve("./pages/IndexPage.vue"),
         },
         {
           path: "/:pathMatch(.*)*",
