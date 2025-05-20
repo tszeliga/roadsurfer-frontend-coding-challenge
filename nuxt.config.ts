@@ -12,10 +12,19 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/test-utils',
     '@nuxt/ui',
+    '@pinia/nuxt',
     './modules/calendar',
   ],
 
   css: ['~/assets/css/main.css'],
+
+  pinia: {
+    storesDirs: ['./stores/**', './modules/calendar/stores/**'],
+  },
+
+  imports: {
+    dirs: ['composables', './modules/calendar/composables/**']
+  },
 
   vite: {
     plugins: [
