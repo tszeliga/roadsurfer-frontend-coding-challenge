@@ -49,13 +49,16 @@ onMounted(() => {
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-600">Start Date:</span>
-                            <span class="font-medium text-gray-800">{{ formatDate(booking.startDate) }}</span>
+                            <span class="font-medium text-gray-800">{{ formatDate(booking.startDate) }} &#9650;</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-600">End Date:</span>
-                            <span class="font-medium text-gray-800">{{ formatDate(booking.endDate) }}</span>
+                            <span class="font-medium text-gray-800">{{ formatDate(booking.endDate) }} &#9660;</span>
                         </div>
-
+                         <div class="flex justify-between">
+                            <span class="text-gray-600">Booking duration:</span>
+                            <span class="font-medium text-gray-800">{{ duration(booking.startDate, booking.endDate, 'days') }} days</span>
+                        </div>
                     </div>
                 </div>
 

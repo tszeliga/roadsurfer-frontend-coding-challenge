@@ -7,9 +7,10 @@ export const useCalendarStore = defineStore("calendar", () => {
   const selectedStation = ref<Station | null>(null);
   const stationsList = ref<Station[]>([]);
   const bookings = ref<Booking[]>([]);
-  const startDate = ref<Date>(newDate("2020-10-11T00:20:46.856Z").startOf("week").toDate());
+  const startDate = ref<Date>(newDate("2020-10-11T00:20:46.856Z").startOf("isoWeek").toDate());
+  // const startDate = ref<Date>(newDate().startOf("isoWeek").toDate());
   const endDate = computed<Date>(() =>
-    newDate(startDate.value).endOf("week").toDate()
+    newDate(startDate.value).endOf("isoWeek").toDate()
   );
 
   const week: Ref<WeekDay[]> = computed((): WeekDay[] => {
@@ -48,6 +49,10 @@ export const useCalendarStore = defineStore("calendar", () => {
     startDate.value = newDate(startDate.value).add(1, "week").toDate();
   }
 
+   function thisWeek(): void {
+    startDate.value = newDate().startOf("isoWeek").toDate()
+  }
+
   onBeforeMount(():void => {
     fetch();
   });
@@ -60,6 +65,7 @@ export const useCalendarStore = defineStore("calendar", () => {
     endDate,
     nextWeek,
     prevWeek,
+    thisWeek,
     fetchStations,
     getSelectedStationBookings,
     stationsList,

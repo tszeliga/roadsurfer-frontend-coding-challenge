@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { generateWeek } from './calendarService'; // Replace with your actual file path
+import { generateWeek } from './calendarService';
 
-describe('generateWeek function', () => {
+describe('generateWeek function', () => { // todo
 
   const startDate = new Date('2025-05-01');
   const endDate = new Date('2025-05-07');
@@ -37,5 +37,4 @@ describe('generateWeek function', () => {
     expect(result).toEqual([]);
   });
 
-  // Add more test cases as needed to cover edge cases, such as empty bookings array, same startDate and endDate, etc.
 });

@@ -1,13 +1,21 @@
 <template>
-    <div class="">   
+    <div>   
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div class="relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                </svg>
+                <SearchIcon />
             </div>
-            <input v-model="searchText" autocomplete="off" type="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" :placeholder="placeholder" required @input="onInputChange" @blur="reset" @focus="onInputChange" />
+            <input
+              v-model="searchText" 
+              autocomplete="off" 
+              type="search" 
+              class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              :placeholder="placeholder" 
+              required 
+              @input="onInputChange" 
+              @blur="reset" 
+              @focus="onInputChange"
+              >
 
              <transition name="fade" mode="out-in">
               <ul v-if="items.length > 0 && isListVisible" class="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden">
@@ -22,84 +30,62 @@
 <script setup lang="ts">
 
 import { debounce } from "lodash"
+import SearchIcon from "./SearchIcon.vue"
+
+interface SearchElement {
+  id: string;
+  name: string;
+}
 
 const props = defineProps<{
   placeholder: string,
   searchId: string,
-  getResults: Array<Station>
+  getResults: Array<SearchElement>
 }>()
 
 const emit = defineEmits(["selectItem"])
 
 const MIN_DIGITS: number = 3
 const DEBOUNCE_TIME: number = 300
-const items = ref<Array<Station>>([]);
+const items = ref<Array<SearchElement>>([]);
 const searchText = ref<string>("")
 const isListVisible = ref<boolean>(false)
 
 const onInputChange = debounce(() => {
+  const query = searchText.value.trim().toLowerCase();
 
-  if (searchText.value.length === 0) {
+  if (!query) {
     items.value = [];
     isListVisible.value = false;
     return;
   }
 
-  if (searchText.value.length >= MIN_DIGITS) {
-    items.value = props.getResults.filter(item => item.name.toLowerCase().includes(searchText.value.toLowerCase()))
-    isListVisible.value = true;
-    
+  if (query.length >= MIN_DIGITS) {
+    items.value = props.getResults.filter(({ name }) =>
+      name.toLowerCase().includes(query)
+    );
+    isListVisible.value = !!items.value.length;
+    return
   }
-}, DEBOUNCE_TIME)
 
-function select(item: Station) {
+  items.value = [];
+  isListVisible.value = false;
+
+}, DEBOUNCE_TIME);
+
+function select(item: SearchElement): void {
   emit("selectItem", item);
-  searchText.value = item.name; //todo zeby tekst
+  searchText.value = item.name;
   isListVisible.value = false;
 }
 
-function reset() {
+function reset(): void {
   isListVisible.value = false;
 }
 
 </script>
 
 <style scoped>
-.autocomplete-container {
-  position: relative;
-  width: 300px;
-}
-
-.autocomplete-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.autocomplete-suggestions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  background-color: white;
-  z-index: 100;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.autocomplete-suggestion {
-  padding: 8px;
-  cursor: pointer;
-}
-
-.autocomplete-suggestion:hover {
-  background-color: #f0f0f0;
-}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.1s ease;

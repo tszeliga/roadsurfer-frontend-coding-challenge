@@ -15,8 +15,10 @@ const generateWeek = (startDate: Date, endDate: Date, bookings: Array<Booking>) 
   while (current.isBefore(end)) {
     const dayBookings = bookings.filter((booking: Booking) => {
       const newStart = newDate(booking.startDate);
-      const newEnd = newDate(booking.startDate);
-      return newStart.isSame(current, "day") || newEnd.isSame(current, "day");
+      const newEnd = newDate(booking.endDate);
+      const isStartDay = newStart.isSame(current, "day");
+      const isEndDay = newEnd.isSame(current, "day");
+      return isStartDay || isEndDay;
     });
 
     days.push({
