@@ -34,7 +34,7 @@ function thisWeek() {
             <div class="flex justify-between items-center mb-4">
                 <ClientOnly>
                     <SearchInput
-                        placeholder="Search camps" search-id="name" :get-results="store.stationsList"
+                        placeholder="Search camps" search-id="name" :init-text="store.selectedStationName" :get-results="store.stationsList"
                         @select-item="search" />
                 </ClientOnly>
                 <div class="flex space-x-2">
@@ -56,10 +56,10 @@ function thisWeek() {
                         <div class="font-bold text-sm">{{ formatDate(day.date) }}</div>
                     </div>
                     
-                    <div v-if="day.bookings.length" class="p-2 bg-green-300 rounded-lg cursor-pointer">
+                    <div v-if="day.bookings.length" >
                         <NuxtLink
                             v-for="(booking, i) in day.bookings"
-                            :key="i" class=""
+                            :key="i" class="p-2 bg-green-300 rounded-lg cursor-pointer flex"
                             :to="{ name: ROUTES.Booking, params: { bookingId: booking.id, stationId: booking.pickupReturnStationId } }">
                             {{ booking.customerName }}
                         </NuxtLink>

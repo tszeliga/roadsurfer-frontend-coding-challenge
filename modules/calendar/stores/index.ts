@@ -5,6 +5,7 @@ import { newDate } from "@/utils/date";
 
 export const useCalendarStore = defineStore("calendar", () => {
   const selectedStation = ref<Station | null>(null);
+  const selectedStationName = computed((): string | undefined => selectedStation.value?.name);
   const stationsList = ref<Station[]>([]);
   const bookings = ref<Booking[]>([]);
   const startDate = ref<Date>(newDate("2020-10-11T00:20:46.856Z").startOf("isoWeek").toDate());
@@ -70,5 +71,6 @@ export const useCalendarStore = defineStore("calendar", () => {
     getSelectedStationBookings,
     stationsList,
     week,
+    selectedStationName
   };
 });
