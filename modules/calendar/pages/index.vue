@@ -29,12 +29,11 @@ function thisWeek() {
 <template>
     <div class="min-h-screen flex items-center justify-center p-4">
         <div class="w-full min-h-screen max-w-4xl bg-white shadow-lg rounded-lg p-6">
-
         <div>
-            <div class="flex justify-between items-center mb-4">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
                 <ClientOnly>
                     <SearchInput
-                        placeholder="Search camps" search-id="name" :init-text="store.selectedStationName" :get-results="store.stationsList"
+                        placeholder="Search camps" class="flex flex-1 w-full" search-id="name" :init-text="store.selectedStationName" :get-results="store.stationsList"
                         @select-item="search" />
                 </ClientOnly>
                 <div class="flex space-x-2">

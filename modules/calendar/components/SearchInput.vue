@@ -39,7 +39,7 @@ interface SearchElement {
 
 const props = defineProps<{
   placeholder: string,
-  initText: string | undefined,
+  initText: string,
   searchId: string,
   getResults: Array<SearchElement>
 }>()
@@ -85,7 +85,7 @@ function reset(): void {
 }
 
 onMounted(() => {
-  searchText.value = props.initText || "";
+  searchText.value = props.initText;
 });
 
 </script>

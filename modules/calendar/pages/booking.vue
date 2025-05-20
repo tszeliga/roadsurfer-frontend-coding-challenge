@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { fetchBooking } from '../services/bookingsService.api';
-import Loading from '../components/Loading.vue';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 import { formatDate } from './../../../utils/date';
 import { ROUTES } from './../routes'
 const route = useRoute()
@@ -26,7 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="min-h-screen flex  justify-center p-4">
         <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
             <NuxtLink
                 :to="{ name: ROUTES.Calendar }"
@@ -74,7 +74,7 @@ onMounted(() => {
             </div>
 
             <div v-if="isLoading" class="flex justify-center mt-6">
-                <Loading />
+                <LoadingSpinner />
             </div>
         </div>
     </div>

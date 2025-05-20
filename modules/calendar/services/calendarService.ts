@@ -1,36 +1,40 @@
-import { newDate } from "@/utils/date";
+import { newDate } from "./../../../utils/date";
+import type { Dayjs } from "dayjs";
+
+const getBookingsForDay = (currentDate: Dayjs, bookings: Array<Booking>): Booking[] => {
+  return bookings.filter((booking: Booking) => {
+    const bookingStart = newDate(booking.startDate);
+    const bookingEnd = newDate(booking.endDate);
+    
+    return (
+      bookingStart.isSame(currentDate, "day") ||
+      bookingEnd.isSame(currentDate, "day")
+    );
+  });
+}
 
 const generateWeek = (startDate: Date, endDate: Date, bookings: Array<Booking>) => {
-  const start = newDate(startDate);
+  let start = newDate(startDate);
   const end = newDate(endDate);
-
   const days: WeekDay[] = [];
 
   if (end.isBefore(start)) {
     return days;
   }
 
-  let current = start.clone();
-
-  while (current.isBefore(end)) {
-    const dayBookings = bookings.filter((booking: Booking) => {
-      const newStart = newDate(booking.startDate);
-      const newEnd = newDate(booking.endDate);
-      const isStartDay = newStart.isSame(current, "day");
-      const isEndDay = newEnd.isSame(current, "day");
-      return isStartDay || isEndDay;
-    });
+  while (start.isBefore(end)) {
+    const dayBookings = getBookingsForDay(start, bookings);
 
     days.push({
-      date: current.toDate(),
+      date: start.toDate(),
       bookings: dayBookings,
     });
 
-    current = current.add(1, "day");
+    start = start.add(1, "day");
   }
 
   return days;
 };
 
 
-export { generateWeek };
+export { generateWeek, getBookingsForDay };
