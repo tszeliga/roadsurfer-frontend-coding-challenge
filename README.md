@@ -1,41 +1,59 @@
-# Nuxt Minimal Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# 📆 Booking Calendar App – Technical Test
+
+This project is a calendar-based booking viewer built using **Vue 3**, **Nuxt 3**, and **TypeScript**.
+
+---
+
+## 🚀 Tech Stack
+
+- **Vue 3** + **Nuxt 3** – Application framework
+- **TypeScript** – Type safety
+- **TailwindCSS** – Utility-first styling
+- **Pinia** – Reactive state management
+- **Vitest** – Unit testing
+- **Day.js** – Date manipulation (wrapped in a utility abstraction)
+
+## Notes
+
+**UI Design**
+
+I put minimal effort into visual styling. The focus was on building a working and logically sound UI using TailwindCSS.
+
+**Date Management**
+
+Used Day.js, wrapped in a local abstraction layer (utils/date.ts) for flexibility and future swap-out potential.
+
+**Calendar Rendering**
+
+The calendar was custom-implemented for demonstration. In a production environment, a solution like FullCalendar could be considered.
+
+**Architecture Approach**
+
+Applied a modular, domain-based architecture:
+
+```bash
+components/: UI layer
+stores/: state/data management
+services/: business logic (e.g., booking filters, calendar generation)
+api/: decoupled API layer
+```
+
 
 ## Setup
 
 Make sure to install dependencies:
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
-
+ 
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
@@ -43,33 +61,23 @@ bun run dev
 Build the application for production:
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+How to run tests:
+
+```bash
+npm run test
+```
+
+How to run linter:
+
+```bash
+npm run lint
+```

@@ -13,16 +13,17 @@ const getBookingsForDay = (currentDate: Dayjs, bookings: Array<Booking>): Bookin
   });
 }
 
-const generateWeek = (startDate: Date, endDate: Date, bookings: Array<Booking>) => {
+const generateDateRangeWithBookings = (startDate: Date, endDate: Date, bookings: Array<Booking>) => {
   let start = newDate(startDate);
   const end = newDate(endDate);
   const days: WeekDay[] = [];
 
   if (end.isBefore(start)) {
+    console.log("End date is before start date. Returning empty array.");
     return days;
   }
 
-  while (start.isBefore(end)) {
+  while (!start.isAfter(end)) {
     const dayBookings = getBookingsForDay(start, bookings);
 
     days.push({
@@ -37,4 +38,4 @@ const generateWeek = (startDate: Date, endDate: Date, bookings: Array<Booking>) 
 };
 
 
-export { generateWeek, getBookingsForDay };
+export { generateDateRangeWithBookings, getBookingsForDay };

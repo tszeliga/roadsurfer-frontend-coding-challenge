@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fetchBooking } from '../services/bookingsService.api';
+import { fetchBooking } from '../services/bookingsApiService';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import { formatDate } from './../../../utils/date';
 import { ROUTES } from './../routes'

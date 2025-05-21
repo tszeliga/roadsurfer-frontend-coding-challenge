@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { newDate } from "./../../../utils/date";
-import { getBookingsForDay, generateWeek } from "./calendarService"; 
+import { getBookingsForDay, generateDateRangeWithBookings } from "./calendarService"; 
 
 describe("getBookingsForDay", () => {
   it("should return bookings that start on the current day", () => {
@@ -68,18 +68,23 @@ describe("getBookingsForDay", () => {
 
 
 
-describe("generateWeek", () => {
+describe("generateDateRangeWithBookings", () => {
     it("should generate days from startDate (inclusive) to endDate (exclusive)", () => {
         const startDate = new Date("2023-05-20");
         const endDate = new Date("2023-05-23");
         const bookings: Booking[] = [];
 
-        const result = generateWeek(startDate, endDate, bookings);
+        const result = generateDateRangeWithBookings(startDate, endDate, bookings);
+        console.log(result[0].date.toISOString().slice(0, 10));
+        console.log(result[1].date.toISOString().slice(0, 10));
+        console.log(result[2].date.toISOString().slice(0, 10));
+        console.log(result[3].date.toISOString().slice(0, 10));
 
-        expect(result).toHaveLength(3);
+        expect(result).toHaveLength(4);
         expect(result[0].date.toISOString().slice(0, 10)).toBe("2023-05-20");
         expect(result[1].date.toISOString().slice(0, 10)).toBe("2023-05-21");
         expect(result[2].date.toISOString().slice(0, 10)).toBe("2023-05-22");
+        expect(result[3].date.toISOString().slice(0, 10)).toBe("2023-05-23");
     });
 
     it("should return an empty array if endDate is before startDate", () => {
@@ -87,7 +92,7 @@ describe("generateWeek", () => {
         const endDate = new Date("2023-05-20");
         const bookings: Booking[] = [];
 
-        const result = generateWeek(startDate, endDate, bookings);
+        const result = generateDateRangeWithBookings(startDate, endDate, bookings);
 
         expect(result).toHaveLength(0);
     });
@@ -119,7 +124,7 @@ describe("generateWeek", () => {
             },
         ];
 
-        const result = generateWeek(startDate, endDate, bookings);
+        const result = generateDateRangeWithBookings(startDate, endDate, bookings);
 
         expect(result[0].bookings.map(b => b.id).sort()).toEqual(["1", "3"]);
         expect(result[1].bookings.map(b => b.id).sort()).toEqual(["1", "2"]);
@@ -139,7 +144,7 @@ describe("generateWeek", () => {
             },
         ];
 
-        const result = generateWeek(startDate, endDate, bookings);
+        const result = generateDateRangeWithBookings(startDate, endDate, bookings);
 
         expect(result[0].bookings).toHaveLength(0);
         expect(result[1].bookings).toHaveLength(0);
@@ -150,7 +155,7 @@ describe("generateWeek", () => {
         const endDate = new Date("2023-05-22");
         const bookings: Booking[] = [];
 
-        const result = generateWeek(startDate, endDate, bookings);
+        const result = generateDateRangeWithBookings(startDate, endDate, bookings);
 
         expect(result[0].bookings).toHaveLength(0);
         expect(result[1].bookings).toHaveLength(0);

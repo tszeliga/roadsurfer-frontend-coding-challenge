@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { fetchStations } from "../services/bookingsService.api";
-import { generateWeek } from "../services/calendarService";
+import { fetchStations } from "../services/bookingsApiService";
+import { generateDateRangeWithBookings } from "../services/calendarService";
 import { newDate } from "@/utils/date";
 
 export const useCalendarStore = defineStore("calendar", () => {
@@ -8,12 +8,12 @@ export const useCalendarStore = defineStore("calendar", () => {
   const selectedStationName = computed((): string => selectedStation.value?.name || "");
   const stationsList = ref<Station[]>([]);
   const bookings = ref<Booking[]>([]);
-  const startDate = ref<Date>(newDate("2020-10-11T00:20:46.856Z").startOf("isoWeek").toDate()); // fixed date to have any bookings without need to going back too much to the past
-  // const startDate = ref<Date>(newDate().startOf("isoWeek").toDate()); // current week
+  // const startDate = ref<Date>(newDate("2020-10-11T00:20:46.856Z").startOf("isoWeek").toDate()); // fixed date to have any bookings without need to going back too much to the past
+  const startDate = ref<Date>(newDate().startOf("isoWeek").toDate()); // current week
   const endDate = computed<Date>(() => newDate(startDate.value).endOf("isoWeek").toDate());
 
   const week: Ref<WeekDay[]> = computed((): WeekDay[] => {
-    return generateWeek(startDate.value, endDate.value, bookings.value);
+    return generateDateRangeWithBookings(startDate.value, endDate.value, bookings.value);
   });
 
   function selectStation(station: Station): void {

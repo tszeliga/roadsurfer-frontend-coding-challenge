@@ -1,26 +1,24 @@
 <script setup lang="ts">
 
-import { formatDate, isToday } from '../../../utils/date';
-
 import SearchInput from '../components/SearchInput.vue';
+import BookingDayCard from '../components/BookingDayCard.vue'
 import { useCalendarStore } from '@/modules/calendar/stores'
-import { ROUTES } from './../routes'
 
 const store = useCalendarStore()
 
-function search(item: Station) {
+const search = (item: Station) => {
     store.selectStation(item);
 }
 
-function nextWeek() {
+const nextWeek = () => {
     store.nextWeek();
 }
 
-function prevWeek() {
+const prevWeek = () => {
     store.prevWeek();
 }
 
-function thisWeek() {
+const thisWeek = () => {
     store.thisWeek();
 }
 
@@ -50,28 +48,13 @@ function thisWeek() {
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
-                <div v-for="(day, index) in store.week" :key="index" class="flex-1 w-full lg:w-1/3">
-                    <div  class="p-2 rounded-lg mb-2" :class="isToday(day.date) ? 'bg-blue-100' : 'bg-gray-100'">
-                        <div class="font-bold text-sm">{{ formatDate(day.date) }}</div>
-                    </div>
-                    
-                    <div v-if="day.bookings.length" >
-                        <NuxtLink
-                            v-for="(booking, i) in day.bookings"
-                            :key="i" class="p-2 bg-green-300 rounded-lg cursor-pointer flex"
-                            :to="{ name: ROUTES.Booking, params: { bookingId: booking.id, stationId: booking.pickupReturnStationId } }">
-                            {{ booking.customerName }}
-                        </NuxtLink>
-                    </div>
-                    <div v-else class="p-2 bg-gray-50 rounded-lg">
-                        <span class="text-gray-300">No bookings</span>      
-                    </div>
-                </div>
+                <BookingDayCard
+                    v-for="(day) in store.week"
+                    :key="day.date"
+                    :day="day"
+                />
             </div>
-
         </div>
     </div>
     </div>
 </template>
-
-<style scoped></style>
