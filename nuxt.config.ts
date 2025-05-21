@@ -3,6 +3,12 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-20',
   devtools: { enabled: true },
+  ssr: false,
+  router: {
+    options: {
+      hashMode: true
+    }
+  },
 
   modules: [
     '@nuxt/eslint',
@@ -13,7 +19,7 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
     '@nuxt/ui',
     '@pinia/nuxt',
-    './modules/calendar',
+    './modules/calendar'
   ],
 
   css: ['~/assets/css/main.css'],
@@ -34,5 +40,5 @@ export default defineNuxtConfig({
 
   app: {
     baseURL: '/roadsurfer-frontend-coding-challenge/'
-  }
+  },
 })

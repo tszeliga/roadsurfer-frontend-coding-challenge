@@ -29,11 +29,9 @@ const thisWeek = () => {
         <div class="w-full min-h-screen max-w-4xl bg-white shadow-lg rounded-lg p-6">
         <div>
             <div class="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
-                <ClientOnly>
-                    <SearchInput
-                        placeholder="Search camps" class="flex flex-1 w-full" search-id="name" :init-text="store.selectedStationName" :get-results="store.stationsList"
-                        @select-item="search" />
-                </ClientOnly>
+                <SearchInput
+                    placeholder="Search camps" class="flex flex-1 w-full" search-id="name" :init-text="store.selectedStationName" :get-results="store.stationsList"
+                    @select-item="search" />
                 <div class="flex space-x-2">
                     <button
                         class="p-2 cursor-pointer rounded-md bg-blue-500 text-white hover:bg-blue-600"
