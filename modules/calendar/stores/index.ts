@@ -8,8 +8,8 @@ export const useCalendarStore = defineStore("calendar", () => {
   const selectedStationName = computed((): string => selectedStation.value?.name || "");
   const stationsList = ref<Station[]>([]);
   const bookings = ref<Booking[]>([]);
-  // const startDate = ref<Date>(newDate("2020-10-11T00:20:46.856Z").startOf("isoWeek").toDate()); // fixed date to have any bookings without need to going back too much to the past
-  const startDate = ref<Date>(newDate().startOf("isoWeek").toDate()); // current week
+  const startDate = ref<Date>(newDate("2020-10-11T00:20:46.856Z").startOf("isoWeek").toDate()); // fixed date to see any bookings without need to going back too much to the past
+  // const startDate = ref<Date>(newDate().startOf("isoWeek").toDate()); // current week
   const endDate = computed<Date>(() => newDate(startDate.value).endOf("isoWeek").toDate());
 
   const week: Ref<WeekDay[]> = computed((): WeekDay[] => {
